@@ -67,7 +67,7 @@ module.exports = {
     "coinPrice":{ // If enabled the current coin price will be saved next to each transaction made from the bot and into the price history database table
         "enabled": false,
         "cronTime": 1800, // Cron time in seconds
-        "apiService": "coinmarketcap", // define the api to use -> The coin must be listed on the api! Current possible values are "coinmarketcap" and "cryptocompare" -> you need to register to get a api key
+        "apiService": "coingecko", // define the api to use -> The coin must be listed on the api! Current possible values are "coinmarketcap" and "cryptocompare" -> you need to register to get a api key
         "apiKey": "XXX",
         "coinSymbol": "Symbol", // e.g. BTC
         "currency": "EUR" // Cent prices in this currency
