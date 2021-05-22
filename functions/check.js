@@ -158,6 +158,27 @@ module.exports = {
             var requestOptions = {}; 
 
             switch (apiService) {
+                case 'coingecko':
+                        requestOptions = {
+                            method: 'GET',
+                            uri: 'https://api.coingecko.com/api/v3/simple/price',
+                            qs: {
+                                'ids': config.coinPrice.coinSymbol,
+                                'vs_currencies': config.coinPrice.currency
+                            },
+                            json: true,
+                            gzip: true
+                        };
+                        rp(requestOptions).then(response => {
+                            if(response.status.error_code > 0){
+                                resolve(false);
+                            }else{
+                                resolve(response.data[config.coinPrice.coinSymbol].[config.coinPrice.currency]);
+                            }
+                        }).catch((err) => {
+                            resolve(false);
+                        });
+                    break;
                 case 'coinmarketcap':
                         requestOptions = {
                             method: 'GET',
