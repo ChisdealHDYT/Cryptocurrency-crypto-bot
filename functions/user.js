@@ -35,6 +35,14 @@ const Big = require('big.js'); // https://github.com/MikeMcl/big.js -> http://mi
 
 module.exports = {
 
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //DOGECASH
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
     /* ------------------------------------------------------------------------------ */
     // Check if user is registered by id
     /* ------------------------------------------------------------------------------ */
@@ -86,7 +94,7 @@ module.exports = {
     // Get user id by address
     /* ------------------------------------------------------------------------------ */
 
-    user_get_id_by_address: function(address){
+    dogec_user_get_id_by_address: function(address){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -104,11 +112,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("SELECT discord_id FROM user WHERE deposit_address = ? LIMIT 1",[address],function (error, results, fields){
+                    connection.execute("SELECT discord_id FROM user WHERE dogec_deposit_address = ? LIMIT 1",[address],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {
-                            var errorMessage = "user_get_id_by_address: MySQL query problem. (SELECT discord_id FROM user WHERE deposit_address = ? LIMIT 1)";
+                            var errorMessage = "user_get_id_by_address: MySQL query problem. (SELECT discord_id FROM user WHERE dogec_deposit_address = ? LIMIT 1)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -133,7 +141,7 @@ module.exports = {
     // Get user balance by id
     /* ------------------------------------------------------------------------------ */
 
-    user_get_balance: function(userID){
+    dogec_user_get_balance: function(userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -151,11 +159,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("SELECT balance FROM user WHERE discord_id = ? LIMIT 1",[userID],function (error, results, fields){
+                    connection.execute("SELECT dogec_balance FROM user WHERE discord_id = ? LIMIT 1",[userID],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {
-                            var errorMessage = "user_get_balance: MySQL query problem. (SELECT balance FROM user WHERE discord_id = ? LIMIT 1)";
+                            var errorMessage = "user_get_balance: MySQL query problem. (SELECT dogec_balance FROM user WHERE discord_id = ? LIMIT 1)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -176,7 +184,7 @@ module.exports = {
     // Get user stake balance by id
     /* ------------------------------------------------------------------------------ */
 
-    user_get_stake_balance: function(userID){
+    dogec_user_get_stake_balance: function(userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -194,11 +202,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("SELECT stake_balance FROM user WHERE discord_id = ? LIMIT 1",[userID],function (error, results, fields){
+                    connection.execute("SELECT dogec_stake_balance FROM user WHERE discord_id = ? LIMIT 1",[userID],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {
-                            var errorMessage = "user_get_stake_balance: MySQL query problem. (SELECT stake_balance FROM user WHERE discord_id = ? LIMIT 1)";
+                            var errorMessage = "user_get_stake_balance: MySQL query problem. (SELECT dogec_stake_balance FROM user WHERE discord_id = ? LIMIT 1)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -219,7 +227,7 @@ module.exports = {
     // Add stake balance to user
     /* ------------------------------------------------------------------------------ */
 
-    user_add_stake_balance: function(stakeAmount,userID,currentDatetime){
+    dogec_user_add_stake_balance: function(dogec_stakeAmount,userID,currentDatetime){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -237,11 +245,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("INSERT INTO user (username,discord_id,stake_balance,unstake_datetime) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE stake_balance = stake_balance + ?, unstake_datetime = ?",['tipUser',userID,Big(stakeAmount).toString(),currentDatetime,Big(stakeAmount).toString(),currentDatetime],function (error, results, fields){
+                    connection.execute("INSERT INTO user (username,discord_id,dogec_stake_balance,dogec_unstake_datetime) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE dogec_stake_balance = dogec_stake_balance + ?, dogec_unstake_datetime = ?",['tipUser',userID,Big(dogec_stakeAmount).toString(),currentDatetime,Big(dogec_stakeAmount).toString(),currentDatetime],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
-                            var errorMessage = "user_add_stake_balance: MySQL query problem. (INSERT INTO user (username,discord_id,stake_balance) VALUES (?,?,?) ON DUPLICATE KEY UPDATE stake_balance = stake_balance + ?)";
+                            var errorMessage = "user_add_stake_balance: MySQL query problem. (INSERT INTO user (username,discord_id,dogec_stake_balance) VALUES (?,?,?) ON DUPLICATE KEY UPDATE dogec_stake_balance = dogec_stake_balance + ?)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -262,7 +270,7 @@ module.exports = {
     // Get user address by id
     /* ------------------------------------------------------------------------------ */
 
-    user_get_address: function(userID){
+    dogec_user_get_address: function(userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -280,11 +288,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("SELECT deposit_address FROM user WHERE discord_id = ? LIMIT 1",[userID],function (error, results, fields){
+                    connection.execute("SELECT dogec_deposit_address FROM user WHERE discord_id = ? LIMIT 1",[userID],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {
-                            var errorMessage = "user_get_address: MySQL query problem. (SELECT deposit_address FROM user WHERE discord_id = ? LIMIT 1)";
+                            var errorMessage = "user_get_address: MySQL query problem. (SELECT dogec_deposit_address FROM user WHERE discord_id = ? LIMIT 1)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -305,7 +313,7 @@ module.exports = {
     // Credit balance to user by address
     /* ------------------------------------------------------------------------------ */
 
-    user_credit_balance: function(creditAddress,creditAmount){
+    dogec_user_credit_balance: function(dogec_creditAddress,dogec_creditAmount){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -323,7 +331,7 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("UPDATE user SET balance = balance + ? WHERE deposit_address = ?",[creditAmount,creditAddress],function (error, results, fields){
+                    connection.execute("UPDATE user SET dogec_balance = dogec_balance + ? WHERE dogec_deposit_address = ?",[dogec_creditAmount,dogec_creditAddress],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
@@ -348,7 +356,7 @@ module.exports = {
     // Substract balance from user by id
     /* ------------------------------------------------------------------------------ */
 
-    user_substract_balance: function(substractAmount,userID){
+    dogec_user_substract_balance: function(dogec_substractAmount,userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -366,11 +374,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("UPDATE user SET balance = balance - ? WHERE discord_id = ?",[Big(substractAmount).toString(),userID],function (error, results, fields){
+                    connection.execute("UPDATE user SET dogec_balance = dogec_balance - ? WHERE discord_id = ?",[Big(dogec_substractAmount).toString(),userID],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
-                            var errorMessage = "user_substract_balance: MySQL query problem. (UPDATE user SET balance = balance - ? WHERE discord_id = ?)";
+                            var errorMessage = "user_substract_balance: MySQL query problem. (UPDATE user SET dogec_balance = dogec_balance - ? WHERE discord_id = ?)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -391,7 +399,7 @@ module.exports = {
     // Substract stake balance from user by id
     /* ------------------------------------------------------------------------------ */
 
-    user_substract_stake_balance: function(substractAmount,userID,currentDatetime){
+    dogec_user_substract_stake_balance: function(dogec_substractAmount,userID,currentDatetime){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -409,11 +417,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("UPDATE user SET stake_balance = stake_balance - ?, unstake_datetime = ? WHERE discord_id = ?",[Big(substractAmount).toString(),currentDatetime,userID],function (error, results, fields){
+                    connection.execute("UPDATE user SET dogec_stake_balance = dogec_stake_balance - ?, dogec_unstake_datetime = ? WHERE discord_id = ?",[Big(dogec_substractAmount).toString(),currentDatetime,userID],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
-                            var errorMessage = "user_substract_stake_balance: MySQL query problem. (UPDATE user SET stake_balance = stake_balance - ? WHERE discord_id = ?)";
+                            var errorMessage = "user_substract_stake_balance: MySQL query problem. (UPDATE user SET dogec_stake_balance = dogec_stake_balance - ? WHERE discord_id = ?)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -434,7 +442,7 @@ module.exports = {
     // Add balance to user profile
     /* ------------------------------------------------------------------------------ */
 
-    user_add_balance: function(addAmount,userID){
+    dogec_user_add_balance: function(dogec_addAmount,userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -452,11 +460,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("INSERT INTO user (username,discord_id,balance) VALUES (?,?,?) ON DUPLICATE KEY UPDATE balance = balance + ?",['tipUser',userID,Big(addAmount).toString(),Big(addAmount).toString()],function (error, results, fields){
+                    connection.execute("INSERT INTO user (username,discord_id,balance) VALUES (?,?,?) ON DUPLICATE KEY UPDATE dogec_balance = dogec_balance + ?",['tipUser',userID,Big(dogec_addAmount).toString(),Big(dogec_addAmount).toString()],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
-                            var errorMessage = "user_add_balance: MySQL query problem. (INSERT INTO user (username,discord_id,balance) VALUES (?,?,?) ON DUPLICATE KEY UPDATE balance = balance + ?)";
+                            var errorMessage = "user_add_balance: MySQL query problem. (INSERT INTO user (username,discord_id,balance) VALUES (?,?,?) ON DUPLICATE KEY UPDATE dogec_balance = dogec_balance + ?)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -477,7 +485,7 @@ module.exports = {
     // Add balance to all users from rain all
     /* ------------------------------------------------------------------------------ */
 
-    user_add_balance_all: function(addAmount){
+    dogec_user_add_balance_all: function(dogec_addAmount){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -495,11 +503,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("UPDATE user SET balance = balance + ? WHERE discord_id != 'undefined'",[Big(addAmount).toString()],function (error, results, fields){
+                    connection.execute("UPDATE user SET dogec_balance = dogec_balance + ? WHERE discord_id != 'undefined'",[Big(dogec_addAmount).toString()],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
-                            var errorMessage = "user_add_balance_all: MySQL query problem. (UPDATE user SET balance = balance + ? WHERE discord_id != 'undefined')";
+                            var errorMessage = "user_add_balance_all: MySQL query problem. (UPDATE user SET dogec_balance = dogec_balance + ? WHERE discord_id != 'undefined')";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -520,7 +528,7 @@ module.exports = {
     // Add deposit address
     /* ------------------------------------------------------------------------------ */
 
-    user_add_deposit_address: function(depositAddress,userID){
+    dogec_user_add_deposit_address: function(dogec_depositAddress,userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -538,11 +546,11 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("UPDATE user SET deposit_address = ? WHERE discord_id = ?",[depositAddress,userID],function (error, results, fields){
+                    connection.execute("UPDATE user SET dogec_deposit_address = ? WHERE discord_id = ?",[dogec_depositAddress,userID],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error)
                         {   
-                            var errorMessage = "user_add_deposit_address: MySQL query problem. (UPDATE user SET balance = balance + ? WHERE deposit_address = ?)";
+                            var errorMessage = "user_add_deposit_address: MySQL query problem. (UPDATE user SET dogec_balance = dogec_balance + ? WHERE dogec_deposit_address = ?)";
                             if(config.bot.errorLogging){
                                 log.log_write_file(errorMessage);
                                 log.log_write_file(error);
@@ -563,7 +571,7 @@ module.exports = {
     // Get user info by id
     /* ------------------------------------------------------------------------------ */
 
-    user_get_info: function(userID){
+    dogec_user_get_info: function(userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -606,7 +614,7 @@ module.exports = {
     // Register new user
     /* ------------------------------------------------------------------------------ */
 
-    user_register: function(userName,userID){
+    dogec_user_register: function(userName,userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -648,7 +656,7 @@ module.exports = {
     // Update username
     /* ------------------------------------------------------------------------------ */
 
-    user_update_username: function(userName,userID){
+    dogec_user_update_username: function(userName,userID){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -690,7 +698,7 @@ module.exports = {
     // Get all users that have stake value
     /* ------------------------------------------------------------------------------ */
 
-    user_get_stake_users: function(){
+    dogec_user_get_stake_users: function(){
         return new Promise((resolve, reject)=>{
             mysqlPool.getConnection(function(error, connection){
                 if(error){
@@ -708,7 +716,7 @@ module.exports = {
                     log.log_write_console(error);
                     resolve(false);
                 }else{
-                    connection.execute("SELECT id,discord_id,stake_balance FROM user WHERE stake_balance > ?",[0],function (error, results, fields){
+                    connection.execute("SELECT id,discord_id,dogec_stake_balance FROM user WHERE dogec_stake_balance > ?",[0],function (error, results, fields){
                         mysqlPool.releaseConnection(connection);
                         if(error){
                             var errorMessage = "user_get_stake_users: MySQL query problem. (UPDATE user SET username = ? WHERE discord_id = ?)";
