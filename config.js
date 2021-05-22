@@ -36,31 +36,33 @@ module.exports = {
         "waitForConnections": true, // If true, the pool will queue the connection request and call it when one becomes available
     },
     "wallet":{
-        "server": "127.0.0.1", // Wallet server
-        "user": "XXX", // Wallet username
-        "password": "XXX", // Wallet password
-        "port": "1234", // Wallet port
-        // TODO ENCRYPTION KEY FOR WALLET
-        "coinSymbol": "Coin (CoinSymbol)", // Coin name
-        "coinSymbolShort": "Symbol", // Coin name
-        "thumbnailIcon": "https://domain.link/image.png", // Thumbnail icon for all messages (need to get enabled first in code to work = not ready)
-        "check": true, // If enabled it checks (cron) for new transactions
-        "credit": true, // If enabled it credits (cron) new transactions
-        "depositsToCheck": 60, // How many latest deposits should be checked from the wallet
-        "depositsCreditTime": 120, // How often deposits get checked for credit in seconds
-        "depositsConfirmationTime": 40, // How often confirmations get checked
-        "minConfirmationsDeposit": 2000, // Until this confirmations the deposit cron will update the confirmations on database
-        "minConfirmationsCredit": 5, // Minimum confirmations to get the deposit balance credited
-        "depositsHistory": 5, // How many deposits get shown on deposit history command !! Max value 7 !!
-        "withdrawalsHistoryDisplayCount": 5, // How many withdrawals get shown on withdrawal history command !! Max value 5 !!
-        "paymentHistoryCoun": 7, // How many payments get shown on withdrawals payments command !! Max value 7 !!
-        "explorerLinkAddress": "https://explorer.link/#/address/", // Explorer link address for addresses
-        "explorerLinkTransaction": "ttps://explorer.link/#/tx/", // Explorer link transaction
-        "transactionFee": 0.01, // Fee taken for a transaction a user makes - Change value also on help command
-        "minWithdrawalValue": 0.00000001, // Minimum value for withdrawal
-        "minTipValue": 0.00000001, // Minimum value for tip 
-        "maxRainRandomUsers": 15, // Please take care as the bot can crash if the value is to big as for each user a database query is fired!
-        "donateAddress":"XXX" // Address for donations
+        "znz": {
+            "server": "127.0.0.1", // Wallet server
+            "user": "XXX", // Wallet username
+            "password": "XXX", // Wallet password
+            "port": "1234", // Wallet port
+            // TODO ENCRYPTION KEY FOR WALLET
+            "coinSymbol": "Coin (CoinSymbol)", // Coin name
+            "coinSymbolShort": "Symbol", // Coin name
+            "thumbnailIcon": "https://domain.link/image.png", // Thumbnail icon for all messages (need to get enabled first in code to work = not ready)
+            "check": true, // If enabled it checks (cron) for new transactions
+            "credit": true, // If enabled it credits (cron) new transactions
+            "depositsToCheck": 60, // How many latest deposits should be checked from the wallet
+            "depositsCreditTime": 120, // How often deposits get checked for credit in seconds
+            "depositsConfirmationTime": 40, // How often confirmations get checked
+            "minConfirmationsDeposit": 2000, // Until this confirmations the deposit cron will update the confirmations on database
+            "minConfirmationsCredit": 5, // Minimum confirmations to get the deposit balance credited
+            "depositsHistory": 5, // How many deposits get shown on deposit history command !! Max value 7 !!
+            "withdrawalsHistoryDisplayCount": 5, // How many withdrawals get shown on withdrawal history command !! Max value 5 !!
+            "paymentHistoryCoun": 7, // How many payments get shown on withdrawals payments command !! Max value 7 !!
+            "explorerLinkAddress": "https://explorer.link/#/address/", // Explorer link address for addresses
+            "explorerLinkTransaction": "ttps://explorer.link/#/tx/", // Explorer link transaction
+            "transactionFee": 0.01, // Fee taken for a transaction a user makes - Change value also on help command
+            "minWithdrawalValue": 0.00000001, // Minimum value for withdrawal
+            "minTipValue": 0.00000001, // Minimum value for tip 
+            "maxRainRandomUsers": 15, // Please take care as the bot can crash if the value is to big as for each user a database query is fired!
+            "donateAddress":"XXX" // Address for donations
+        }
     },
     "coinPrice":{ // If enabled the current coin price will be saved next to each transaction made from the bot and into the price history database table
         "enabled": false,
